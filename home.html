@@ -1,0 +1,833 @@
+<style>
+  #output4 {
+    color: #6a9550;
+    font-weight:bold;
+  }
+  #outputSearchedAddress {
+    font-weight:bold;
+  }
+  #output {
+    font-weight:bold;
+  }
+  #output2 {
+    font-weight:bold;
+  }
+  #output3 {
+    font-weight:bold;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+.price-color {
+padding-bottom: 10px; 
+padding-top: 10px;
+  font-family: "Montserrat",sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    color: rgba(1, 73, 124, 1);
+    padding-bottom: 7px;
+    display:block;
+    font-size: large;
+}
+.price-color-fee {
+  font-family: "Montserrat",sans-serif;
+    font-weight: bold;
+    font-style: normal;
+    color: rgba(1, 73, 124, 1);
+    display:block;
+    padding-bottom: 7px;
+    font-size: large;
+}
+.button {
+    min-width: auto;
+    padding: 10px 25px 10px 25px;
+    border-color: rgba(0, 106, 255, 1);
+    background: rgba(0, 106, 255, 1);
+    color: rgba(255,255,255,1);
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    font-family: 'Lato',sans-serif;
+    text-shadow: none;
+    -webkit-transition: color 0.2s linear,background 0.2s linear,border-color 0.2s linear, text-shadow 0.2s linear;
+    transition: color 0.2s linear,background 0.2s linear,border-color 0.2s linear, text-shadow 0.2s linear;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    position: relative;
+    font-weight: bold;
+    min-height: 36px;
+    min-width: 72px;
+    padding: 6px 54px;
+    font-family: "Montserrat",sans-serif;
+    border-radius: 10px;
+}
+
+input[type=radio] {
+  position: relative;
+  top: 2px;
+}
+
+button {
+  border-color: rgba(0, 106, 255, 1);
+  background: rgba(0, 106, 255, 1);
+  color: rgba(255,255,255,1);
+  font-size: 0.9rem;
+  min-width: auto;
+  padding: 10px 25px 10px 25px;
+}
+
+.input-control.controls {
+  font-size: 0.9rem;
+}
+
+.container-style.result {
+  font-size: 1rem;
+  text-align: center;
+}
+
+p.answer {
+font-size: 40px;
+ color: white;
+ font-weight: 500;
+}
+
+.input-style {
+  font-family: "Montserrat",sans-serif;
+  width: 100%;
+  height: 30px;
+  background-color:transparent;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  color:#014F86;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 1px solid #00357f
+}
+
+.input-style-select {
+  border-radius: 5px;
+  border: 1px solid #00357f;
+  background-color:transparent;
+  font-size: larger;
+  text-align: center;
+  color: #014F86;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.input-control-wrapper {
+  display: inline-block;
+  text-align: left;
+}
+
+.input-control {
+margin-bottom: 15px;
+}
+
+.input-control-wrapper-output {
+  display: inline-block;
+  text-align: left;
+  padding-top:15px;
+}
+.input-control-output {
+margin-bottom: 15px;
+}
+
+.container-style {
+    background-color: #fff;
+    text-align: center;
+    border-radius:15px;
+}
+
+.hidden {
+  display: none;
+}
+.calc-footer {
+  margin-top: 20px;
+}
+.divider {
+  border-top: 1px solid #ccc;
+  position: relative;
+  margin: 30px 0;
+}
+
+.or-text {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+.output-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 15px;
+}
+
+.output-container > div {
+  text-align: left;
+  width: 100%;
+}
+@media (max-width: 767px) {
+.loading-padding-clear {
+    margin-bottom: 3px !important;
+}
+}
+.result-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid rgb(0, 106, 255);
+    border-radius: 8px;
+    max-width: fit-content;
+    margin: 20px auto;
+    background-color: #f5f8fd;
+    text-align: center;
+}
+
+.result-heading {
+    color: rgb(0, 106, 255);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+    color: rgb(0, 106, 255);
+    margin-right: 5px;
+}
+#output4,
+#outputSearchedAddress,
+#output2,
+#output,
+#output3 {
+    display: block;
+}
+
+
+/* Standard style for larger screens */
+#manuallyCalculate, #automaticCalculator, #fetchData, #calculate, #cancelFetch {
+    /* Any other styling you have for these buttons on larger screens */
+    /* If you want to keep the padding for larger screens, keep it here */
+    padding: 10px 52px;
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+    #manuallyCalculate, #automaticCalculator, #fetchData, #calculate, #cancelFetch, #clearData {
+        width: 100%;
+        /* Adjust the padding for mobile devices if needed */
+        padding: 10px 15px;
+    }
+}
+
+
+</style>
+<div class="container-style">
+  <div class="input-control-wrapper">
+
+  <div id="addressInputLabel" class="input-control">
+    <label for="addressInput" id="addressInputLabel" class="price-color">Florida Property Address:</label>
+    <input type="text" id="addressInput" placeholder="Type Address in Florida" class="input-style">
+    <p id="instructionAddress" class="text-align-center font-scale-2 line-height-scale-1 gutter-bottom-1" style="margin-top: 10px;font-weight: bold;">
+      <span style="color: #006aff;">Start by typing the property address</span>
+    </p>
+  </div>
+   
+  
+  <div class="input-control">
+    <label for="listingPriceInput" class="price-color" style="text-align: center;">Listing Price:</label>
+    <input type="text" id="listingPriceInput" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" placeholder="Type Listing Price" class="input-style">
+  </div>
+
+
+  <div class="input-control">
+  <label for="buyersAgencyFee" class="price-color-fee">Buyer's Agency Fee:</label>
+  <select id="buyersAgencyFee" name="Buyer's Agency Fee" class="input-style-select">
+    <option value="" disabled selected hidden>Select Agency Fee</option>
+  </select>
+</div>
+</div>
+
+<div>
+<button id="fetchData" class="button">Calculate</button>
+<button id="calculate" class="button" style="display:none;">Calculate</button>
+<button id="cancelFetch" class="button" style="display:none;border-color: rgba(0, 106, 255, 1);background: #fff;color: rgba(0, 106, 255, 1);">Cancel</button>
+<button id="clearData" class="button" style="margin-top:5px;display:none;padding: 10px 52px;border-color: rgba(0, 106, 255, 1);background: #fff;color: rgba(0, 106, 255, 1);">Clear Search</button> 
+</div>
+
+<div id="input-control-output-id" class="input-control-wrapper-output hidden">
+  <div class="input-control-output">
+    <div class="result-container">
+      <h2 class="result-heading">Rebate Details</h2>
+    <p id="labelEstSave"><span class="label" id="labelEstSave">You Receive </span> <span id="output4"></span></p>
+    <p id="labelSearchAddress"><span class="label" id="labelSearchAddress">Searched Address </span> <span id="outputSearchedAddress" style="color:#354749;"></span></p>
+    <p id="labelListPrice"><span class="label" id="labelListPrice">List Price </span> <span id="output2" style="color:#354749;"></span></p>
+    <p id="labelBuyerAgency"><span class="label" id="labelBuyerAgency">Buyer Agency Compensation </span> <span id="output" style="color:#354749;"></span></p>
+    <p><span class="label" id="labelHomeStatus">Home Status </span> <span id="output3" style="color:#354749;"></span></p>
+</div>
+</div>
+</div>
+
+<!-- Divider with OR -->
+<div class="divider">
+  <span class="or-text">OR</span>
+</div>
+
+<!-- Buttons section -->
+<div>
+<button id="manuallyCalculate" class="button">Manual Calculator</button>
+<button id="automaticCalculator" class="button" style="display:inline-block;">Automatic Calculator</button>
+</div> 
+
+
+<div class="calc-footer">
+<p class="text-align-center font-scale-2 line-height-scale-1 gutter-bottom-1" style="padding-top:10px;">
+  <span style="color: rgb(119, 119, 119);"><i>Disclaimer: This is only an estimate.</i></span>
+</p>
+<p class="text-align-center font-scale-2 line-height-scale-1 gutter-bottom-1" style="padding-top:10px;">
+  <span style="color: #00044c;">Built by Bryce Bayens (Broker)</span>
+</p>
+<p class="text-align-center font-scale-2 line-height-scale-1 gutter-bottom-1" style="padding-top:6px;">
+  <span style="color: #00044c;">&copy; 2023 Save Under Contract LLC</span>
+</p>
+</div>
+</div>
+<!--
+© 2023 Save Under Contract LLC. 
+The JavaScript code herein is the intellectual property of Save Under Contract LLC. 
+Unauthorized replication of this specific code for competitive purposes will be subject to legal action for copyright infringement. 
+The code is authored by Bryce Bayens, who is the proprietor of Save Under Contract LLC.
+-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSYjU_vtbvOU3kRCGNgRgtX-JfPYtTbcE&libraries=places"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+
+let timeoutId = null;
+let abortController = new AbortController();
+let lastFetchedAddress = null;
+let isDataFetched = false; // A flag to check if data has been fetched
+let isManualMode = false;  // A flag to check if the user is in manual mode
+
+// Initially disable the Listing Price and Buyer Agency fields
+document.getElementById("listingPriceInput").disabled = true;
+document.getElementById("buyersAgencyFee").disabled = true;
+
+
+// Function to clear all output fields
+function clearOutputFields() {
+  document.getElementById("outputSearchedAddress").innerText = '';
+  document.getElementById("output").innerText = '';
+  document.getElementById("output2").innerText = '';
+  document.getElementById("output3").innerText = '';
+  document.getElementById("output4").innerText = '';
+  document.getElementById("input-control-output-id").classList.add('hidden');
+  //document.querySelector('.input-control-wrapper-output').style.display = 'none';
+}
+
+// Function to toggle visibility of input fields for Listing Price and Buyer's Agency Fee
+function toggleInputFields(show) {
+  const listingPriceInput = document.getElementById("listingPriceInput");
+  const buyersAgencyFeeSelect = document.getElementById("buyersAgencyFee");
+  const listingPriceLabel = document.querySelector("label[for='listingPriceInput']");
+  const buyersAgencyFeeLabel = document.querySelector("label[for='buyersAgencyFee']");
+  
+  if (show) {
+    listingPriceLabel.classList.remove("hidden");
+    listingPriceInput.classList.remove("hidden");
+    buyersAgencyFeeLabel.classList.remove("hidden");
+    buyersAgencyFeeSelect.classList.remove("hidden");
+  } else {
+    listingPriceLabel.classList.add("hidden");
+    listingPriceInput.classList.add("hidden");
+    buyersAgencyFeeLabel.classList.add("hidden");
+    buyersAgencyFeeSelect.classList.add("hidden");
+  }
+}
+
+toggleInputFields(false);
+
+// Add an event listener for "Manually Calculate" button
+document.getElementById("manuallyCalculate").addEventListener("click", function() {
+  
+  toggleInputFields(true);
+  // Clear all input and output fields
+  document.getElementById("addressInput").value = '';
+  document.getElementById("listingPriceInput").value = '';
+  document.getElementById("buyersAgencyFee").value = '';
+  clearOutputFields();
+
+  // Show/hide relevant buttons
+  document.getElementById("fetchData").style.display = 'none';
+  document.getElementById("manuallyCalculate").style.display = 'none';
+  document.getElementById("automaticCalculator").style.display = 'block';
+
+  // Hide the address field and Fetch Data button
+  document.getElementById("addressInput").style.display = 'none';
+  document.getElementById("addressInputLabel").style.display = 'none';
+  document.getElementById("fetchData").style.display = 'none';
+  document.getElementById("manuallyCalculate").style.display = 'none';
+  
+  // Show the Calculate button
+  document.getElementById("calculate").style.display = 'inline-block';
+  document.getElementById("automaticCalculator").style.display = 'inline-block';
+  
+  // Enable the Listing Price and Buyer Agency Fee fields
+  document.getElementById("listingPriceInput").disabled = false;
+  document.getElementById("buyersAgencyFee").disabled = false;
+  document.getElementById("instructionAddress").style.display = 'none';
+
+  document.getElementById("input-control-output-id").style.display = 'none';
+  document.getElementById("clearData").style.display = 'none';
+
+});
+
+// Add an event listener for "Automatic Calculator" button
+document.getElementById("automaticCalculator").addEventListener("click", function() {
+  toggleInputFields(false);
+  // Clear all input and output fields
+  document.getElementById("addressInput").value = '';
+  document.getElementById("listingPriceInput").value = '';
+  document.getElementById("buyersAgencyFee").value = '';
+  clearOutputFields();
+
+  // Show the address field and Fetch Data button
+  document.getElementById("addressInputLabel").style.display = 'block';
+  document.getElementById("instructionAddress").style.display = 'block';
+  document.getElementById("addressInput").style.display = 'block';
+  document.getElementById("fetchData").style.display = 'inline-block';
+  document.getElementById("manuallyCalculate").style.display = 'inline-block';
+  
+  // Hide the Calculate and Automatic Calculator buttons
+  document.getElementById("calculate").style.display = 'none';
+  document.getElementById("automaticCalculator").style.display = 'none';
+  
+  // Disable the Listing Price and Buyer Agency Fee fields again
+  document.getElementById("listingPriceInput").disabled = true;
+  document.getElementById("buyersAgencyFee").disabled = true;
+
+  document.getElementById("input-control-output-id").style.display = 'none';
+  document.getElementById("clearData").style.display = 'none';
+  
+});
+
+
+// Add an event listener for "Calculate" button
+document.getElementById("calculate").addEventListener("click", function() {
+  const listingPrice = parseFloat(document.getElementById("listingPriceInput").value.replace(/\$|,/g, ''));
+  const buyerAgencyFee = parseFloat(document.getElementById("buyersAgencyFee").value.replace('%', ''));
+  document.querySelector('.input-control-wrapper-output').classList.remove('hidden');
+  // Check if the fields are filled out
+  if (isNaN(listingPrice) || isNaN(buyerAgencyFee)) {
+    alert("Both Listing Price and Buyer's Agency Fee are required.");
+    return;
+  }
+
+  document.getElementById("clearData").style.display = 'inline-block';
+  document.getElementById("input-control-output-id").style.display = 'inline-block';
+
+  document.getElementById("instructionAddress").style.display = 'none';
+  
+  // Perform the calculation
+  const estimatedSavings = (listingPrice * (buyerAgencyFee / 100)) / 2;
+
+  // Hide Property Address Label
+  document.getElementById("labelSearchAddress").style.display = 'none';
+
+  // Hide Home Status
+  document.getElementById("labelHomeStatus").style.display = 'none';
+
+  // Listing Price
+  let listPriceManual = document.getElementById("listingPriceInput").value;
+  document.getElementById("output2").innerText = listPriceManual;
+
+  // Buyers Agency Fee
+  let buyersFeeManual = document.getElementById("buyersAgencyFee").value;
+  document.getElementById("output").innerText = buyersFeeManual;
+
+  
+  // Output the Estimated Savings
+  // document.getElementById("output4").innerText = `$${estimatedSavings.toFixed(2)}`;
+   document.getElementById("output4").innerText = `$${estimatedSavings.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+
+});
+
+// Add an event listener for "Automatic Calculator" button
+document.getElementById("automaticCalculator").addEventListener("click", function() {
+  isManualMode = false; // Set manual mode to false
+  
+  // Show the address field
+  document.getElementById("addressInput").style.display = 'block';
+
+  // Hide Property Address Label
+  document.getElementById("labelSearchAddress").style.display = 'contents';
+
+  // Hide Home Status
+  document.getElementById("labelHomeStatus").style.display = 'contents';
+  
+  // Hide the Calculate button
+  //document.getElementById("calculate").style.display = 'none';
+  
+  // Show the Fetch Data button
+  document.getElementById("fetchData").style.display = 'inline-block';
+  
+  // Disable the Listing Price and Buyer Agency Fee fields again
+  document.getElementById("listingPriceInput").disabled = true;
+  document.getElementById("buyersAgencyFee").disabled = true;
+});
+
+
+// Initialize Google Places Autocomplete
+const input = document.getElementById("addressInput");
+const autocomplete = new google.maps.places.Autocomplete(input, {
+  componentRestrictions: { country: 'us' }
+});
+
+
+// Function to format input as currency
+function formatCurrency(inputElement) {
+  inputElement.addEventListener('input', function (event) {
+    const target = event.target;
+    let value = target.value.replace(/,/g, '').replace(/^\$/, ''); // Remove commas and dollar sign
+
+    // Extract numerical part
+    let numericalPart = value.replace(/[^0-9]/g, '');
+
+    if (numericalPart !== '') {
+      numericalPart = parseInt(numericalPart, 10); // Convert to integer
+      numericalPart = numericalPart.toLocaleString('en-US'); // Format the value using commas
+      target.value = '$' + numericalPart; // Add the dollar sign back
+    } else if (value !== '') { // If there are non-numeric characters, remove them
+      target.value = target.value.slice(0, -1);
+    } else {
+      target.value = ''; // If the value is empty or invalid, set it to empty
+    }
+  });
+}
+
+  // Attach the function to the Listing Price input element
+  const listingPriceInput = document.getElementById("listingPriceInput");
+  formatCurrency(listingPriceInput);
+
+// Generate Buyer's Agency Fee options dynamically
+const buyersAgencyFeeSelect = document.getElementById("buyersAgencyFee");
+for (let i = 20; i <= 40; i++) {
+  const optionValue = (i / 10).toFixed(1);  // Convert to a decimal and format to one decimal place
+  const displayValue = optionValue + '%';  // Add a percentage sign for display
+  const newOption = new Option(displayValue, optionValue + '%');  // The value also includes the percentage sign
+  buyersAgencyFeeSelect.add(newOption);
+}
+
+
+  // Add an event listener for place_changed to automatically fetch data
+  autocomplete.addListener('place_changed', function() {
+    const place = autocomplete.getPlace();
+    const newAddress = place.formatted_address;
+
+    // Only fetch data if the address has changed
+    if (newAddress !== lastFetchedAddress) {
+      lastFetchedAddress = newAddress;
+      fetchData();
+    }
+  });
+
+// Function to fetch data
+function fetchData() {
+  const fetchDataButton = document.getElementById("fetchData");
+  const cancelFetchButton = document.getElementById("cancelFetch");
+  const addressInput = document.getElementById("addressInput");
+
+  // Disable input field
+  addressInput.disabled = true;
+
+  fetchDataButton.disabled = true;
+
+document.getElementById("addressInput").addEventListener("input", function() {
+   if (this.value.trim() === '') {  // Check if the input is empty or only contains whitespace
+       fetchDataButton.disabled = true;
+   } else {
+       fetchDataButton.disabled = false;
+   }
+});
+
+
+  // Show loading text and disable the button
+  fetchDataButton.innerText = 'Loading... ⌛';
+  fetchDataButton.classList.add('loading-padding-clear');
+  fetchDataButton.disabled = true;
+  cancelFetchButton.style.display = 'inline-block';
+
+  timeoutId = setTimeout(() => {
+    abortController.abort(); // Abort fetch
+    alert("Data Error. Please type listing price and buyer's agency fee manually.");
+    resetUI();
+  }, 10000);
+
+  const place = autocomplete.getPlace();
+  if (!place || !place.address_components) {
+    document.getElementById("output").innerText = 'Please enter a valid address';
+    resetUI();  // Hide cancel button and reset UI
+    return;
+  }
+
+  // Check if the address is in Florida
+  const isInFlorida = place.address_components.some(component => 
+    component.types.includes('administrative_area_level_1') && component.short_name === 'FL'
+  );
+
+  if (!isInFlorida) {
+    document.getElementById("output").innerText = 'Please enter an address in Florida';
+    return;
+  }
+
+  const myHeaders = new Headers();
+  myHeaders.append("X-RapidAPI-Key", "dc322cecbbmsh0e0096e4b15618ep15ed1ejsn7627ecd90bf2");
+  myHeaders.append("X-RapidAPI-Host", "zillow56.p.rapidapi.com");
+
+  const requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    signal: abortController.signal,
+    redirect: 'follow'
+  };
+
+  //const address = place.formatted_address;
+  //const encodedAddress = encodeURIComponent(address);
+  // document.getElementById("outputSearchedAddress").innerText = `Searched Address: ${address}`; // old
+  //document.getElementById("outputSearchedAddress").innerText = `${address}`;
+
+  const address = place.formatted_address.replace(", USA", "");
+  const encodedAddress = encodeURIComponent(address);
+  document.getElementById("outputSearchedAddress").innerText = `${address}`;
+
+  fetch(`https://zillow56.p.rapidapi.com/search_address?address=${encodedAddress}`, requestOptions)
+    .then(response => response.json())
+    .then(result => {
+   // document.querySelector('.input-control-wrapper-output').classList.remove('hidden');
+    document.querySelector('.input-control-wrapper-output').style.display = 'inline-block';
+   document.getElementById("input-control-output-id").classList.remove('hidden');
+    const keystoneHomeStatus = result.resoFacts ? result.keystoneHomeStatus : 'Unknown';
+    const daysOnZillow = result.timeOnZillow ? result.timeOnZillow : 'Not available';
+    // document.getElementById("output5").innerText = `Days on Zillow: ${daysOnZillow}`;
+
+
+    if (['ForSaleForeclosure', 'Pending', 'ForSale'].includes(keystoneHomeStatus)) {
+      const buyerAgencyCompensation = result.resoFacts ? result.resoFacts.buyerAgencyCompensation : 'Not available';
+      const buyersAgencyFeeSelect = document.getElementById("buyersAgencyFee");
+
+
+if (buyerAgencyCompensation !== 'Not available') {
+  let formattedBuyerAgencyCompensation = parseFloat(buyerAgencyCompensation).toFixed(2) + '%';
+  let optionExists = false;
+
+  // Check if an option with this value already exists
+  for (let i = 0; i < buyersAgencyFeeSelect.options.length; i++) {
+    if (buyersAgencyFeeSelect.options[i].value === formattedBuyerAgencyCompensation) {
+      optionExists = true;
+      break;
+    }
+  }
+
+  // If not, create a new option
+  if (!optionExists) {
+    const newOption = new Option(formattedBuyerAgencyCompensation, formattedBuyerAgencyCompensation);
+    buyersAgencyFeeSelect.add(newOption);
+  }
+
+  // Select the appropriate option
+  buyersAgencyFeeSelect.value = formattedBuyerAgencyCompensation;
+  }
+      const listingPrice = result.price ? result.price : 'Not available';
+      let listingPriceDisplay = result.price ? result.price : 'Not available';
+      if (listingPriceDisplay !== 'Not available') {
+        listingPriceDisplay = '$' + parseInt(listingPrice).toLocaleString('en-US');
+      }
+      //cdocument.getElementById("output2").innerText = `List Price: ${listingPriceDisplay}`;
+      document.getElementById("output2").innerText = `${listingPriceDisplay}`;
+
+
+      if (listingPrice !== 'Not available') {
+        const formattedListingPrice = '$' + parseInt(listingPrice, 10).toLocaleString('en-US');
+        document.getElementById("listingPriceInput").value = formattedListingPrice;
+      }
+
+      // document.getElementById("output").innerText = `Buyer Agency Compensation: ${buyerAgencyCompensation}%`; // old
+      document.getElementById("output").innerText = `${buyerAgencyCompensation}%`;
+
+      // Calculate estimated savings if both values are available
+      if (buyerAgencyCompensation !== 'Not available' && listingPrice !== 'Not available') {
+        const buyerAgencyCompensationPercent = parseFloat(buyerAgencyCompensation.replace('%', '')) / 100;
+        const listingPriceValue = listingPrice;
+
+        let estimatedSavings = (listingPriceValue * buyerAgencyCompensationPercent * 0.5);
+        estimatedSavings = Math.floor(estimatedSavings);
+
+
+        document.getElementById("output4").innerText = `$${estimatedSavings.toLocaleString()}`;
+      }
+
+      document.getElementById("output3").innerText = formatHomeStatus(keystoneHomeStatus);
+
+      // Display hidden elements //brycebryce
+      document.getElementById("labelEstSave").style.display = 'inline-block';
+      document.getElementById("labelSearchAddress").style.display = 'inline-block';
+      document.getElementById("labelListPrice").style.display = 'inline-block';
+      document.getElementById("labelBuyerAgency").style.display = 'inline-block';
+
+    } else if (keystoneHomeStatus === 'NotForSale') {
+      document.getElementById("labelEstSave").style.display = 'none';
+      document.getElementById("labelListPrice").style.display = 'none';
+      document.getElementById("labelBuyerAgency").style.display = 'none';
+      document.getElementById("output3").innerText = 'Property Not For Sale';
+    } else {
+      document.getElementById("labelEstSave").style.display = 'none';
+      document.getElementById("labelListPrice").style.display = 'none';
+      document.getElementById("labelBuyerAgency").style.display = 'none';
+      document.getElementById("labelSearchAddress").style.display = 'none';
+
+      // Clear / Hide Elements
+      document.getElementById("output3").innerText = 'Property Status Unknown';
+
+      // Clear / Hide Elements
+      document.getElementById("output").style.display = 'none';
+      document.getElementById("labelSearchAddress").style.display = 'none';
+      document.getElementById("outputSearchedAddress").style.display = 'none';
+      document.getElementById("labelHomeStatus").style.display = 'none';
+      document.getElementById("outputSearchedAddress").innerText = '';
+      document.getElementById("output2").innerText = '';
+      document.getElementById("labelBuyerAgency").style.display = 'none';
+      document.getElementById("output").innerText = '';
+      document.getElementById("labelListPrice").style.display = 'none';
+
+    }
+
+      // Re-enable the button and change the text back to "Fetch Data"
+      fetchDataButton.innerText = '';
+      fetchDataButton.disabled = false;
+      resetUI(); 
+      document.getElementById("clearData").style.display = 'inline-block';
+  })
+    .catch(error => {
+      document.getElementById("output4").innerText = `Error: ${error}`;
+      document.getElementById("labelEstSave").style.display = 'none';
+      document.getElementById("labelListPrice").style.display = 'none';
+      document.getElementById("labelBuyerAgency").style.display = 'none';
+      document.getElementById("labelHomeStatus").style.display = 'none';
+
+ 
+      // Re-enable the button and change the text back to "Fetch Data" even in case of an error
+      fetchDataButton.innerText = 'Calculate';
+      fetchDataButton.disabled = false;
+      resetUI();  
+      document.getElementById("clearData").style.display = 'inline-block';
+  });
+
+}
+
+function formatHomeStatus(output3Value) {
+    let displayValue;
+
+    switch (output3Value) {
+        case "ForSaleForeclosure":
+            displayValue = "For Sale Foreclosure";
+            break;
+        case "Pending":
+            displayValue = "Pending (Under Contract)";
+            break;
+        case "ForSale":
+            displayValue = "For Sale";
+            break;
+        case "NotForSale":
+            displayValue = "Not For Sale";
+            break;
+        default:
+            displayValue = output3Value; // default to raw value if none of the conditions match
+    }
+
+    return displayValue;
+}
+
+// Function to reset UI elements
+function resetUI() {
+  const fetchDataButton = document.getElementById("fetchData");
+  const cancelFetchButton = document.getElementById("cancelFetch");
+  const addressInput = document.getElementById("addressInput");
+
+  fetchDataButton.innerText = 'Calculate';
+  fetchDataButton.disabled = false;
+  cancelFetchButton.style.display = 'none';
+  clearTimeout(timeoutId);
+  abortController = new AbortController();
+
+  // Re-enable input field
+  addressInput.disabled = false;
+
+}
+
+document.getElementById("automaticCalculator").style.display = 'none';
+
+// Add event listener for "Clear Data" button
+document.getElementById("clearData").addEventListener("click", function() {
+   // Clear all input fields
+   document.getElementById("addressInput").value = '';
+   document.getElementById("listingPriceInput").value = '';
+   document.getElementById("buyersAgencyFee").value = '';
+  
+   // Clear all output fields
+   document.getElementById("outputSearchedAddress").innerText = '';
+   document.getElementById("output").innerText = '';
+   document.getElementById("output2").innerText = '';
+   document.getElementById("output3").innerText = '';
+   document.getElementById("output4").innerText = '';
+   document.getElementById("instructionAddress").style.display = 'block';
+  
+
+   document.querySelector('.input-control-wrapper-output').style.display = 'none';  // This line was missing
+   document.getElementById("input-control-output-id").classList.add('hidden');
+   document.getElementById("clearData").style.display = 'none';
+});
+
+// Event listener for "Fetch Data" button
+document.getElementById("fetchData").addEventListener("click", function() {
+  fetchData(); // Call fetchData when button is clicked
+    if(!document.getElementById("listingPriceInput").disabled && !document.getElementById("buyersAgencyFee").disabled) {
+    document.getElementById("automaticCalculator").style.display = 'inline-block';
+  }
+  document.getElementById("instructionAddress").style.display = 'none';
+});
+
+// Event listener for "Cancel" button
+document.getElementById("cancelFetch").addEventListener("click", function() {
+  abortController.abort();
+  alert("The operation was cancelled by the user.");
+  resetUI();
+});
+
+</script>
